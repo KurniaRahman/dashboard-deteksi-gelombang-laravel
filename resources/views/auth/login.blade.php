@@ -65,12 +65,27 @@
                         <div class="relative">
                             <input type="password" 
                                    id="password" 
-                                   class="bg-slate-50 border border-slate-300 text-slate-900 text-base rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 block w-full p-4 pl-12 transition-all duration-200 hover:bg-slate-100" 
+                                   class="bg-slate-50 border border-slate-300 text-slate-900 text-base rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 block w-full p-4 pl-12 pr-12 transition-all duration-200 hover:bg-slate-100" 
                                    placeholder="Masukkan password"
                                    required>
                             <svg class="w-5 h-5 text-slate-400 absolute left-4 top-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
                             </svg>
+                            <!-- Toggle Password Visibility Button -->
+                            <button type="button" 
+                                    id="toggle-password" 
+                                    class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 transition-colors duration-200 focus:outline-none"
+                                    aria-label="Toggle password visibility">
+                                <!-- Eye Closed Icon (default - password hidden) -->
+                                <svg id="eye-closed" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                                </svg>
+                                <!-- Eye Open Icon (password visible) -->
+                                <svg id="eye-open" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                            </button>
                         </div>
                     </div>
 
@@ -82,7 +97,7 @@
 
                 <!-- Error Message -->
                 <div id="error-message" class="mt-6 text-red-500 text-sm text-center hidden p-3 bg-red-50 border border-red-200 rounded-lg"></div>
-
+            </div>
 
             <!-- Copyright footer -->
             <div class="absolute bottom-8 left-8 right-8 md:left-auto md:right-8 md:w-1/2 text-center md:text-right">
@@ -95,7 +110,36 @@
     <script>
         const form = document.getElementById('login-form');
         const errorMessage = document.getElementById('error-message');
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('toggle-password');
+        const eyeClosedIcon = document.getElementById('eye-closed');
+        const eyeOpenIcon = document.getElementById('eye-open');
 
+        // Password visibility toggle functionality
+        if (toggleButton) {
+            toggleButton.addEventListener('click', function() {
+                const isPassword = passwordInput.type === 'password';
+                
+                if (isPassword) {
+                    // Show password
+                    passwordInput.type = 'text';
+                    eyeClosedIcon.classList.add('hidden');
+                    eyeOpenIcon.classList.remove('hidden');
+                    toggleButton.setAttribute('aria-label', 'Hide password');
+                } else {
+                    // Hide password
+                    passwordInput.type = 'password';
+                    eyeOpenIcon.classList.add('hidden');
+                    eyeClosedIcon.classList.remove('hidden');
+                    toggleButton.setAttribute('aria-label', 'Show password');
+                }
+                
+                // Keep focus on password input
+                passwordInput.focus();
+            });
+        }
+
+        // Login form functionality
         if (form) {
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -147,7 +191,7 @@
         }
 
         // Input animation effects
-        const inputs = document.querySelectorAll('input[type="email"], input[type="password"]');
+        const inputs = document.querySelectorAll('input[type="email"], input[type="password"], input[type="text"]');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {
                 this.parentElement.classList.add('scale-[1.02]');
@@ -168,6 +212,11 @@
                     document.getElementById('password').focus();
                 }
             }
+        });
+
+        // Prevent form submission when clicking toggle button
+        toggleButton.addEventListener('click', function(e) {
+            e.preventDefault();
         });
     </script>
 </body>

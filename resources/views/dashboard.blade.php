@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Monitoring Gelombang</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Flowbite -->
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.2.0/dist/flowbite.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.2.0/dist/flowbite.min.js"></script>
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gradient-main font-sans">
     <main class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
-        <h1 class="text-3xl font-bold text-slate-800 mb-6">
-            Monitoring Gelombang Air
-        </h1>
+        
+        <!-- HEADER: Judul di Kiri, Tombol Logout di Kanan -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-slate-800">
+                Monitoring Gelombang Air
+            </h1>
+            
+            <!-- Form untuk Logout -->
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="bg-white hover:bg-red-50 text-red-600 font-semibold py-2 px-4 border border-red-200 rounded-lg shadow-sm flex items-center space-x-2 transition-colors duration-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    <span>Logout</span>
+                </button>
+            </form>
+        </div>
+
         <div class="bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6">
             <h2 class="text-lg font-semibold text-slate-700 mb-4">Grafik Gelombang Air</h2>
             <div class="relative h-96">

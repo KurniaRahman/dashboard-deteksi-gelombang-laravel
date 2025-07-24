@@ -14,7 +14,7 @@ export default {
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                'gradient-main': 'linear-gradient(to right, rgb(220, 242, 254), rgba(180, 250, 255, 0.9))',
+                'gradient-main': 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #bae6fd 100%)',
             }
         },
     },

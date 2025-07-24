@@ -11,8 +11,8 @@ if (form) {
         const password = document.getElementById('password').value;
 
         try {
-            await axios.get('/sanctum/csrf-cookie');
-            const response = await axios.post('/api/login', { email, password });
+            // Menggunakan endpoint dari web.php
+            const response = await axios.post('/login', { email, password });
 
             if (response.status === 200) {
                 window.location.href = '/'; // Arahkan ke dashboard
